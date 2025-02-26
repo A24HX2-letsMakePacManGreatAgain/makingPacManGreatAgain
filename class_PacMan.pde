@@ -11,7 +11,6 @@ class PacMan
       case 'w':
         if(posY > 0 && playingBoard[posY-1][posX] != 'w') // Skal tjekke om det ønsket felt er ledigt. ('w' står for "wall").
         {
-          button = ' '; // Så ændre vi på button's værdi, for at Pac-man kun flytter sig et felt.
           playingBoard[posY][posX] = 'e'; // Så gør vi Pac-man's tidligere position til 'e' ("empty").
           posY -= 1; // Ændrer på hans position.
           playingBoard[posY][posX] = 'P'; // Og så flytter hans ikon til den nye position.
@@ -21,7 +20,6 @@ class PacMan
       case 'a':
         if(posX > 0 && playingBoard[posY][posX-1] != 'w') 
         {
-          button = ' ';
           playingBoard[posY][posX] = 'e';
           posX -= 1;
           playingBoard[posY][posX] = 'P';
@@ -31,7 +29,6 @@ class PacMan
       case 's':
         if(posY < levelSize[1] - 1 && playingBoard[posY+1][posX] != 'w') 
         {
-          button = ' ';
           playingBoard[posY][posX] = 'e';
           posY += 1;
           playingBoard[posY][posX] = 'P';
@@ -41,7 +38,6 @@ class PacMan
       case 'd':
         if(posX < levelSize[0] - 1 && playingBoard[posY][posX+1] != 'w') 
         {          
-          button = ' ';
           playingBoard[posY][posX] = 'e';
           posX += 1;
           playingBoard[posY][posX] = 'P';
@@ -49,17 +45,13 @@ class PacMan
         break;
         
       default:
-        break; // Hvis knappen ikke er w, a, s, eller d, skal der ikke ske noget, så derfor er der bare en "break".
+        break; // Hvis knappen ikke er w, a, s, eller d, skal der ikke ske noget.
     }
   } 
   
   void keyReleased() 
   {
-    if(keyPressed)
-    {
-      move(key);
-    }
-    delay(10);
+    move(key);
   }
   
   
