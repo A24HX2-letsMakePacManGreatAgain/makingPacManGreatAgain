@@ -1,5 +1,5 @@
   
-void drawMenu()
+public void drawMenu()
 {
   background (#14084d);
 
@@ -37,7 +37,7 @@ void drawMenu()
    fill(#ff0000);
   textSize(50);
   text("START", 275, 360);
-   text("SHOP", 275, 440);
-    text("QUIT", 150, 100);
+   text("SHOP", 160, 490);
+    text("QUIT", 410, 490);
   
 }
