@@ -56,12 +56,13 @@ void draw()
   {
    drawMenu();
   }
-  background(207);
-  pacman.keyReleased();
-  drawGrid();
-  drawElements();
-  pacman.drawPac();
-
+  else {
+   background(207);
+   pacman.keyReleased();
+   drawGrid();
+   drawElements();
+   pacman.drawPac();
+  }
 }
 
 
