@@ -1,7 +1,8 @@
 
 class PacMan 
 {
-  int speed = 2;
+ // int speed = 2;
+ int delayTime = 200; // makes Pacman move slower
   int PBposX = 1;
   int PBposY = 1; // De her er til "playingboard position".
 
@@ -17,6 +18,7 @@ class PacMan
           playingBoard2[PBposY][PBposX] = 'e'; // Så gør vi Pac-man's tidligere position til 'e' ("empty").
           PBposY--;
           playingBoard2[PBposY][PBposX] = 'P'; // Og så flytter hans ikon til den nye position.
+          delay(delayTime);
         }
         break;
         
@@ -26,6 +28,7 @@ class PacMan
           playingBoard2[PBposY][PBposX] = 'e';
           PBposX--;
           playingBoard2[PBposY][PBposX] = 'P';
+          delay(delayTime);
         }
         break;
         
@@ -35,6 +38,7 @@ class PacMan
           playingBoard2[PBposY][PBposX] = 'e';
           PBposY++; 
           playingBoard2[PBposY][PBposX] = 'P';
+          delay(delayTime);
         }
         break;
         
@@ -44,6 +48,7 @@ class PacMan
           playingBoard2[PBposY][PBposX] = 'e';
           PBposX++;
           playingBoard2[PBposY][PBposX] = 'P';
+          delay(delayTime);
         }
         break;
         
@@ -62,4 +67,3 @@ class PacMan
     image(pac, PBposX*gridSize-5, PBposY*gridSize-4);
   }
 }
-

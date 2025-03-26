@@ -1,4 +1,6 @@
-String gameState = "Main menu";
+
+String gameState = "!Main menu";
+
 PacMan pacman = new PacMan();
 public PImage pac;
 public int[] levelSize = {28, 36}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
