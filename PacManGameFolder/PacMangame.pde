@@ -1,4 +1,4 @@
-String gameState = "Main menu";
+String gameState;
 PacMan pacman = new PacMan();
 public PImage pac;
 public int[] levelSize = {28, 36}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
@@ -48,20 +48,23 @@ void setup()
   frameRate(30);
   textSize(30);
   pac = loadImage("JohnPackageMan.png");
+  gameState = "Main Menu";
 }
 
-void draw() 
+void draw()
 {
-  if(gameState == "Main menu") 
+  if (gameState == "Main menu")
   {
-   drawMenu();
+     drawMenu();
+  } 
+  else if (gameState == "Playing")
+  {
+    background(207);
+    pacman.keyReleased();
+    drawGrid();
+    drawElements();
+    pacman.drawPac();
   }
-  background(207);
-  pacman.keyReleased();
-  drawGrid();
-  drawElements();
-  pacman.drawPac();
-
 }
 
 
