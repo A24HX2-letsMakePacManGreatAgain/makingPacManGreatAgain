@@ -56,7 +56,7 @@ class PacMan
 
   void keyReleased()
   {
-    if (millis() - delayTime > 200) {
+    if (millis() - delayTime > 75) {
       move(key);
       delayTime = millis(); // register tidspunkt for sidste bevægelse
     }
