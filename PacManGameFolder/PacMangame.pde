@@ -48,7 +48,7 @@ void setup()
   frameRate(30);
   textSize(30);
   pac = loadImage("JohnPackageMan.png");
-  gameState = "Main Menu";
+  gameState = "Main menu";
 }
 
 void draw()
