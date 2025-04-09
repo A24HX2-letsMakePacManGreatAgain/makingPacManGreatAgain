@@ -59,6 +59,9 @@ void draw()
   } 
   else if (gameState == "Playing")
   {
+    stroke(#000000);
+    strokeWeight(1);
+    textSize(30);
     background(207);
     pacman.keyReleased();
     drawGrid();
