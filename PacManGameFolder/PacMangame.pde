@@ -105,3 +105,39 @@ void drawElements()
     }
   }
 }
+
+void mousePressed() 
+{
+  if(gameState == "Main menu") // Kan kun have én "mousePressed()", så vi er tvunget til at have "if"-statements.
+  {
+   if (mouseButton == LEFT && (mouseX >= 240 && mouseX <= 440) && (mouseY >= 290 && mouseY <= 390))
+    {
+      gameState = "Playing";
+    }
+  
+    //quitting when pressed quit
+    else if (mouseButton == LEFT && (mouseX >= 360 && mouseX <= 560) && (mouseY >= 420 && mouseY <= 520))
+    {
+      exit();
+    }
+  
+    //goes to the shop when pressed shop
+    else if (mouseButton == LEFT && (mouseX >= 120 && mouseX <= 320) && (mouseY >= 420 && mouseY <= 520))
+    {
+      gameState = "Shop";
+    }
+  }
+  
+  else if(gameState == "Shop")
+  {
+    if(mouseButton == LEFT && (mouseX >= 40 && mouseX <= 200) && (mouseY >= height-100 && mouseY <= height-100+60)) // Knappen til at gå tilbage til main menu.
+    {
+      gameState = "Main menu";
+    }
+    else if(mouseButton == LEFT && (mouseX >= width-200 && mouseX <= width-40) && (mouseY >= height-100 && mouseY <= height-40)) 
+    { // Knappen til at gå videre til kosmetikker
+      gameState = "Cosmetics";
+    }
+  }
+}
+
