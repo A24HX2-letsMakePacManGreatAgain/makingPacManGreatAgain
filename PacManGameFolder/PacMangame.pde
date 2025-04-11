@@ -51,6 +51,10 @@ void setup()
   frameRate(30);
   textSize(30);
   pac = loadImage("JohnPackageMan.png");
+  radRobert = loadImage("ratRobert.png");
+  shopBackground = loadImage("shopBackground.png");
+  coin = loadImage("coin.png");
+
   gameState = "Main Menu";
 }
 
