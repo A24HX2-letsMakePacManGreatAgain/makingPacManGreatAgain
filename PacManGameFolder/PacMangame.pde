@@ -2,7 +2,7 @@ String gameState;
 PacMan pacman = new PacMan();
 public PImage pac;
 public int[] levelSize = {28, 36}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
-Ghost ghost;
+Ghost ghost = new Ghost();;
 
 public char[][] playingBoard2 = {{'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
   {'w', ' ', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -50,7 +50,6 @@ void setup()
   textSize(30);
   pac = loadImage("JohnPackageMan.png");
   gameState = "Main menu";
-  ghost = new Ghost();
 }
 
 void draw()
