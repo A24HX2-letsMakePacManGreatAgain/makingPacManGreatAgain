@@ -96,3 +96,26 @@ void shopButtonAnimation()
     text("SHOP", 145, 490);
   }
 }
+
+
+
+void mousePressed()
+{
+  //starts the game when pressed START
+  if (mouseButton == LEFT && (mouseX >= 240 && mouseX <= 440) && (mouseY >= 290 && mouseY <= 390))
+  {
+    gameState = "Playing";
+  }
+
+  //quitting when pressed quit
+  if (mouseButton == LEFT && (mouseX >= 360 && mouseX <= 560) && (mouseY >= 420 && mouseY <= 520))
+  {
+    exit();
+  }
+
+  //goes to the shop when pressed shop
+  if (mouseButton == LEFT && (mouseX >= 120 && mouseX <= 320) && (mouseY >= 420 && mouseY <= 520))
+  {
+    gameState = "Shop";
+  }
+}
