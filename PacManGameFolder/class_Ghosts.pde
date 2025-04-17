@@ -30,6 +30,3 @@ class Ghost
     ellipse(PBposX * gridSize + gridSize/2, PBposY * gridSize + gridSize/2, gridSize*0.8, gridSize*0.8);
   }
 }
-
-
-
