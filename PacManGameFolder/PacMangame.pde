@@ -58,7 +58,7 @@ void setup()
   radRobert = loadImage("ratRobert.png");
   shopBackground = loadImage("shopBackground.png");
   coin = loadImage("coin.png");
-
+  
   ghost = new Ghost();
   gameState = "Main menu";
 }
@@ -89,11 +89,11 @@ void draw()
 void drawGrid() 
 {
   
-  for(int i = 1; i <= levelSize[0]; i++) 
+  for(int i = 1; i <= 28; i++) 
   {
     line(gridSize*i, 0, gridSize*i, height);
   }
-  for(int i = 1; i <= levelSize[1]; i++) 
+  for(int i = 1; i <= 32; i++) 
   {
     line(0, gridSize*i + 96, width, gridSize*i + 96);
   }
@@ -101,9 +101,9 @@ void drawGrid()
 
 void drawElements()
 {
-  for (int y = 0; y < levelSize[1]; y++)
+  for (int y = 0; y < 32; y++)
   {
-    for (int x = 0; x < levelSize[0]; x++)
+    for (int x = 0; x < 28; x++)
     {
       char element = playingBoard2[y][x];
       switch(element)
@@ -111,15 +111,15 @@ void drawElements()
 
       case 'p':
         fill(0, 255, 255);
-        text(element, 2+gridSize*x, 22+gridSize*y);
+        text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
         break;
       case 'c':
         fill(0, 255, 0);
-        text(element, 2+gridSize*x, 22+gridSize*y);
+        text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
         break;
       case 'w':
         fill(0);
-        text(element, 2+gridSize*x, 22+gridSize*y);
+        text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
         break;
       }
     }
@@ -133,8 +133,7 @@ void drawNavbarPlaying()
   fill(#33397d);
   rect(0, 0, width - 1, 96);
   
-  coin.resize(70, 70);
-  image(coin, 10, 0);
+  image(coin, -20, -15);
   fill(#ffffff);
   textSize(20);
   text(nCoins + " coins", 70, 40);
