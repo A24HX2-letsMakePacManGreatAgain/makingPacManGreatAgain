@@ -4,7 +4,7 @@ public void drawMenu()
   background (#14084d);
 
   //for cirklerne ude i hjørnerne. for loop for at slippe for at skrive circle() om og om igen
-  //plus farve og ingen outline ha
+  //plus farve og ingen outline
   fill(#ebda26);
   noStroke();
   for (int i = 1; i <= 20; i++)
