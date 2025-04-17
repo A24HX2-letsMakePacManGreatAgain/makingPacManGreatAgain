@@ -7,7 +7,7 @@ class PacMan
   int PBposX = 1;
   int PBposY = 1; // De her er til "playingboard position".
   
-  boolean moved = false; // til at vide om det er starten af spillet eller ej. Bruges til hans ikon.
+  boolean moved = false; // til at vide om det er starten af spillet eller ej. Bruges til hans bevægelse.
 
 
   void move(char button)
@@ -20,6 +20,7 @@ class PacMan
       {
         playingBoard2[PBposY][PBposX] = 'e'; // Så gør vi Pac-man's tidligere position til 'e' ("empty").
         PBposY--;
+        checkForBuffs();
         playingBoard2[PBposY][PBposX] = 'P'; // Og så flytter hans ikon til den nye position.
       }
       break;
@@ -29,6 +30,7 @@ class PacMan
       {
         playingBoard2[PBposY][PBposX] = 'e';
         PBposX--;
+        checkForBuffs();
         playingBoard2[PBposY][PBposX] = 'P';
       }
       break;
@@ -38,6 +40,7 @@ class PacMan
       {
         playingBoard2[PBposY][PBposX] = 'e';
         PBposY++;
+        checkForBuffs();
         playingBoard2[PBposY][PBposX] = 'P';
       }
       break;
@@ -47,16 +50,32 @@ class PacMan
       {
         playingBoard2[PBposY][PBposX] = 'e';
         PBposX++;
+        checkForBuffs();
         playingBoard2[PBposY][PBposX] = 'P';
       }
-      
       break;
 
     default:
       break; // Hvis knappen ikke er w, a, s, eller d, skal der ikke ske noget.
     }
   }
-
+  
+  void checkForBuffs() 
+  {
+    if(playingBoard2[PBposY][PBposX] == 'c') 
+    {
+      nCoins += 1*coinMultiplier;
+    }
+    else if(playingBoard2[PBposY][PBposX] == 'b') // Den her er ny, b står for berry.
+    {
+      // Tilføjes senere
+    }
+    else if(playingBoard2[PBposY][PBposX] == 'm') // Den her er også ny, m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier.
+    {
+      coinMultiplier++;
+    }
+  }
+  
   void keyReleased()
   {
     if (millis() - delayTime1 > delayTime2) {
@@ -67,6 +86,6 @@ class PacMan
 
   void drawPac()
   {
-    image(pac, PBposX*gridSize-5, PBposY*gridSize-4);
+    image(pac, PBposX*gridSize-5, PBposY*gridSize-4 + 96);
   }
 }
