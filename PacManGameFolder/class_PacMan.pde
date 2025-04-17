@@ -7,12 +7,12 @@ class PacMan
   int PBposX = 1;
   int PBposY = 1; // De her er til "playingboard position".
   
-  int movedOrNo = 0; // til at vide om det er starten af spillet eller ej. Bruges til hans bevægelse. 0 er at han ikke har bevægede sig, og 1 er at han har bevægede sig.
+  boolean moved = false; // til at vide om det er starten af spillet eller ej. Bruges til hans ikon.
 
 
   void move(char button)
   {
-    movedOrNo = 1;
+    moved = true;
     switch(button)
     {
     case 'w':
