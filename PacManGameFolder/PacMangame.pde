@@ -61,7 +61,7 @@ void setup()
   shopBackground = loadImage("shopBackground.png");
   coin = loadImage("coin.png");
   
-  gameState = "Shop";
+  gameState = "Main menu";
 }
 
 void draw()
