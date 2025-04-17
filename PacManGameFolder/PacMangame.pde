@@ -60,7 +60,7 @@ void setup()
   radRobert = loadImage("ratRobert.png");
   shopBackground = loadImage("shopBackground.png");
   coin = loadImage("coin.png");
-  
+
   gameState = "Main menu";
 }
 
