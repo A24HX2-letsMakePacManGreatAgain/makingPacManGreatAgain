@@ -1,16 +1,18 @@
 
 class PacMan
 {
-  // int speed = 2;
-  int delayTime = 0;  // makes Pacman move slower
+  int delayTime1 = 0;  
+  int delayTime2 = 75; // makes Pacman move slower
   
   int PBposX = 1;
   int PBposY = 1; // De her er til "playingboard position".
-
+  
+  boolean moved = false; // til at vide om det er starten af spillet eller ej. Bruges til hans ikon.
 
 
   void move(char button)
   {
+    moved = true;
     switch(button)
     {
     case 'w':
@@ -47,6 +49,7 @@ class PacMan
         PBposX++;
         playingBoard2[PBposY][PBposX] = 'P';
       }
+      
       break;
 
     default:
@@ -56,15 +59,14 @@ class PacMan
 
   void keyReleased()
   {
-    if (millis() - delayTime > 75) {
+    if (millis() - delayTime1 > delayTime2) {
       move(key);
-      delayTime = millis(); // register tidspunkt for sidste bevægelse
+      delayTime1 = millis(); // register tidspunkt for sidste bevægelse
     }
   }
 
   void drawPac()
   {
-
     image(pac, PBposX*gridSize-5, PBposY*gridSize-4);
   }
 }
