@@ -4,7 +4,7 @@ speedUpgrade speedy = new speedUpgrade();
 wtwUpgrade wally = new wtwUpgrade();
 healthUpgrade health = new healthUpgrade();
 berryDurationIncrease BDI = new berryDurationIncrease();
-Ghost ghost = new Ghost();
+Ghost ghost;
 
 public PImage pac; // Pacman's billede
 public PImage radRobert; // Billede af shopkeeper'en
@@ -58,7 +58,8 @@ void setup()
   radRobert = loadImage("ratRobert.png");
   shopBackground = loadImage("shopBackground.png");
   coin = loadImage("coin.png");
-  
+
+  ghost = new Ghost();
   gameState = "Main menu";
 }
 
