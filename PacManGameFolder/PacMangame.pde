@@ -1,7 +1,7 @@
 import gifAnimation.*;
 
 String gameState;
-PacMan pacman = new PacMan();
+PacMan pacman;
 speedUpgrade speedy = new speedUpgrade();
 wtwUpgrade wally = new wtwUpgrade();
 healthUpgrade health = new healthUpgrade();
@@ -18,11 +18,12 @@ public PImage berryUpgrade;
 public PImage wtwUpg;
 
 public int[] levelSize = {28, 32}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
-public char[][] playingBoard2;
+
 
 public float gridSize = 24; // Variablen skal være public for at den kan bruges igennem de forskellige filer.
 public int nCoins = 120; // Tester-værdi til coins.
 public int coinMultiplier = 1;
+boolean chaseStarted;
 
 void setup()
 {
@@ -43,7 +44,11 @@ void setup()
   gameState = "Main menu";
   
   playingBoard2 = level1;
+  pacman = new PacMan();
   ghost = new Ghost();
+  chaseStarted = false;
+  
+  pathfindingPreparation();
 }
 
 void draw()
@@ -51,18 +56,24 @@ void draw()
   if (gameState == "Main menu")
   {
     drawMenu();
-  } else if (gameState == "Playing")
+  } 
+  else if (gameState == "Playing")
   {
     stroke(#000000);
     strokeWeight(1);
     textSize(30);
     background(207);
-    pacman.keyReleased();
     drawGrid();
     drawElements();
-    pacman.drawPac();
     drawNavbarPlaying();
+    changeLevel();
+    
+    pacman.keyReleased();
+    pacman.drawPac();
+    
+    ghost.move();
     ghost.drawGhost();
+    ghostChaseStarter();
   }
   else if(gameState == "Shop") 
   {
@@ -220,5 +231,17 @@ void mousePressed()
     {
       gameState = "Main menu";
     }
+  }
+}
+
+void ghostChaseStarter() 
+{
+  int rnd = (int) random(0, 100);
+  /* 0.3% chance for at spøgelserne skifter til chase, med et delay på 10 sekunder efter starten af spillet. ChaseStarted er en variabel der sørger for at den her funktion kører i en loop (i draw()), da stien kun udvikler sig for hvert frame.
+     Da chaseStarted starter som false kan den første betingelse kun starte funktionen, men når den første betingelse så har startet funktionen bliver chaseStarted til true, og kan dermed sørge for at funktionen kører i en loop. */
+  if((rnd < 0.03 && millis() > 10000 && ghost.movementState != "chase") || chaseStarted) 
+  { 
+    chaseStarted = true;
+    pathfindingLogistics();  
   }
 }
