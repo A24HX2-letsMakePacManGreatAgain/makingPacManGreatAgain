@@ -135,8 +135,8 @@ class Ghost
     if(currentPath != null && pathIndex >= 0 && pathIndex < currentPath.size()) // Her bruger vi en if-statement som en form for for-loop.
     {
       Node target = currentPath.get(pathIndex); // Først giver vi variablen værdien af den næste node som vi skal flytte til.
-      PBposX = target.j; // Så flytter vi vores x.
-      PBposY = target.i; // Så flytter vi vores y.
+      PBposX = target.x; // Så flytter vi vores x.
+      PBposY = target.y; // Så flytter vi vores y.
       pathIndex++; // Og så går vi videre til den næste node.
     }  // Det er kort sagt en for-loop med én ekstra betingelse.
   }
