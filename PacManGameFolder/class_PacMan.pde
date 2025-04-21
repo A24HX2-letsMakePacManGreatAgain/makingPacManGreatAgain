@@ -12,7 +12,6 @@ class PacMan
 
   void move(char button)
   {
-    moved = true;
     switch(button)
     {
     case 'w':
@@ -22,6 +21,7 @@ class PacMan
         PBposY--;
         checkForBuffs();
         playingBoard2[PBposY][PBposX] = 'P'; // Og så flytter hans ikon til den nye position.
+        moved = true;
       }
       break;
 
@@ -32,6 +32,7 @@ class PacMan
         PBposX--;
         checkForBuffs();
         playingBoard2[PBposY][PBposX] = 'P';
+        moved = true;
       }
       break;
 
@@ -42,6 +43,7 @@ class PacMan
         PBposY++;
         checkForBuffs();
         playingBoard2[PBposY][PBposX] = 'P';
+        moved = true;
       }
       break;
 
@@ -52,6 +54,7 @@ class PacMan
         PBposX++;
         checkForBuffs();
         playingBoard2[PBposY][PBposX] = 'P';
+        moved = true;
       }
       break;
 
@@ -86,6 +89,15 @@ class PacMan
 
   void drawPac()
   {
-    image(pac, PBposX*gridSize-5, PBposY*gridSize-4 + 96);
+    if(!moved) 
+    {
+      image(pac, PBposX * gridSize - 5, PBposY * gridSize - 4 + 96);
+      pacMovingLeft.pause();
+    }
+    else 
+    {
+      image(pacMovingLeft, PBposX * gridSize - 5, PBposY * gridSize - 4 + 96);
+      pacMovingLeft.play(); // Credit til ChatGPT for at hjælpe med dette.
+    }
   }
 }
