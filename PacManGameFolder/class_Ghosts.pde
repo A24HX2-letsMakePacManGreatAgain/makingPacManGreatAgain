@@ -8,7 +8,7 @@ class Ghost
   boolean dieWhenTouched = false; // Boolean til når pacman samler et bær op, og kan spise spøgelserne.
   
   int delayTime1 = 0;
-  int delayTime2 = 100; // Spøgelserne skal være en smule langsommere end pacman.
+  int delayTime2 = 120; // Spøgelserne skal være en smule langsommere end pacman.
   int currentDirection = (int)random(0, 3);
   
   int pathIndex = -1;
@@ -40,83 +40,64 @@ class Ghost
   
   void move() // !!!!! ChatGPT er blevet brugt som en hjælp til denne del, men kun som en vejleder. Koden er ikke direkte kopieret fra ChatGPT.
   {
-    if (millis() - delayTime1 > delayTime2) // Et delay lige som ved pacman, så spøgelset ikke bevæger sig for hurtigt.
+      if (millis() - delayTime1 > delayTime2) // Et delay lige som ved pacman, så spøgelset ikke bevæger sig for hurtigt.
     {
-      if (movementState == "scatter") // If-statement til de 3 forskellige movementState'er.
-      {
-        
-        int[][] directions = 
+        if (movementState == "scatter") // If-statement til de 3 forskellige movementState'er.
         {
-          {0, 1},   // Ned
-          {1, 0},   // Højre
-          {0, -1},  // Op
-          {-1, 0}   // Left
-         }; // Retningerne giver mening i de følgende linjer, de bruges til at beregne nye positioner.
-        
-        int newX = PBposX + directions[currentDirection][0];
-        int newY = PBposY + directions[currentDirection][1]; // Her beregner vi de nye positioner med retningerne.
-        
-        boolean atIntersection = countAvailableDirections() > 2;
-        float willITurn = random(0, 100); // Tilfældig chance for om spøgelset vil dreje eller ej.
-        
-        
-        if (atIntersection && willITurn < 30) // If-statement der 'spørger' om spøgelset vil dreje ved et kryds, hvori der er en 30% chance for at den vil.
-        { 
-          ArrayList<Integer> possibleDirections = new ArrayList<Integer>();
-          for (int i = 0; i < 4; i++) 
-          {
-            int nx = PBposX + directions[i][0];
-            int ny = PBposY + directions[i][1];
-            if (i != (currentDirection + 2) % 4 && playingBoard2[ny][nx] != 'w') // Her tjekker vi for at 'i' ikke er en bagudvendt retning, og at den nye position med i-retningen ikke er en væg.
+            int[][] directions = 
             {
-              possibleDirections.add(i);
+                {0, 1},   // Ned
+                {1, 0},   // Højre
+                {0, -1},  // Op
+                {-1, 0}   // Left
+            };
+
+            int newX = PBposX + directions[currentDirection][0];
+            int newY = PBposY + directions[currentDirection][1]; // Her beregner vi de nye positioner med retningerne.
+            
+            // Vi checker for mulige retninger:
+            ArrayList<Integer> possibleDirections = new ArrayList<Integer>();
+            for (int i = 0; i < 4; i++) 
+            {
+                int nx = PBposX + directions[i][0];
+                int ny = PBposY + directions[i][1];
+                if (i != (currentDirection + 2) % 4 && playingBoard2[ny][nx] != 'w') // Tjekker at den nye i-retning ikke er bagudvendt, og at den nye position ikke er en væg.
+                {
+                    possibleDirections.add(i);
+                }
             }
-          }
-          if (possibleDirections.size() > 0) 
-          {
-            int randomDirection = (int) random(possibleDirections.size());
-            currentDirection = possibleDirections.get(randomDirection); // Nu bruger vi de mulige retninger sammen med en tilfældig retning for at bevæge spøgelsen i den nye tilfældig retning.
-          }
+
+            // Hvis der ikke er nogle retniner (Hvis spøgelset er i et hjørne)
+            if (possibleDirections.size() == 0) 
+            {
+                // Så resetter vi retninger, eller tvinger den ud af hjørnet.
+                currentDirection = (int)random(0, 4); 
+            }
+            else 
+            {
+                int randomDirection = (int)random(possibleDirections.size());
+                currentDirection = possibleDirections.get(randomDirection);
+            }
+
+            // Og så flytter vi spøgelset hen til den nye position.
+            newX = PBposX + directions[currentDirection][0];
+            newY = PBposY + directions[currentDirection][1];
+            if (playingBoard2[newY][newX] != 'w') 
+            {
+                PBposX = newX;
+                PBposY = newY;
+            }
         }
         
-        // Her tjekker vi om spøgelset er blokeret af en væg.
-        newX = PBposX + directions[currentDirection][0];
-        newY = PBposY + directions[currentDirection][1];
-        if (playingBoard2[newY][newX] != 'w') 
+        else if(movementState == "chase") 
         {
-          PBposX = newX;
-          PBposY = newY;
-        } 
-        else 
-        {
-          // Hvis den er blokeret af en væg, så finder vi en ny retning.
-          ArrayList<Integer> possibleDirections = new ArrayList<Integer>();
-          for (int i = 0; i < 4; i++) 
-          {
-            int nx = PBposX + directions[i][0];
-            int ny = PBposY + directions[i][1];
-            if (i != (currentDirection + 2) % 4 && playingBoard2[ny][nx] != 'w') // Tjekker at den nye i-retning ikke er bagudvendt, og at den nye position ikke er en væg.
+            if(millis() - delayTime1 > delayTime2) 
             {
-              possibleDirections.add(i);
+                followCurrentPath();
             }
-          }
-          if (possibleDirections.size() > 0) 
-          {
-            int randomDirection = (int) random(possibleDirections.size());
-            currentDirection = possibleDirections.get(randomDirection); // Og så finder vi en mulig tilfældig retning at bevæge os i.
-          }
         }
-      }
-      
-      else if(movementState == "chase") 
-      {
-        if(millis() - delayTime1 > delayTime2) 
-        {
-          followCurrentPath();
-        }
-      }
-      
-      delayTime1 = millis();
+        
+        delayTime1 = millis();
     }
   }
   
@@ -146,6 +127,7 @@ class Ghost
     if(PBposX == pacman.PBposX && PBposY == pacman.PBposY) 
     {
       nCoins = nCoins/2; // Når man dør fra spøgelserne, mister man halvdelen af sine penge.
+      playingBoard2 = level1; // Og man tager tilbage til level 1.
     }
   }
   
