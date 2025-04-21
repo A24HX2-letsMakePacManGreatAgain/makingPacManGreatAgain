@@ -1,6 +1,6 @@
-class Node {
+class Node { // !!!!! ChatGPT er blevet brugt som vejleder til denne del. Vi har aldrig arbejdede med algoritmer, og har brug for hjælp. Botten er kun blevet brugt til opstillingen, og som vejleder!
   int x, y;
-  float f = 0, g = 0, h = 0;
+  float f = 0, g = 0, h = 0; /* De her værdier er grundlæggende for A* algoritmen. Læs om dem her: https://www.redblobgames.com/pathfinding/a-star/introduction.html*/
 
   ArrayList<Node> neighbors = new ArrayList<Node>();
   Node previous = null;
