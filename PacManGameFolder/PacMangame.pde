@@ -1,53 +1,29 @@
+import gifAnimation.*;
+
 String gameState;
-PacMan pacman = new PacMan();
+PacMan pacman;
 speedUpgrade speedy = new speedUpgrade();
 wtwUpgrade wally = new wtwUpgrade();
 healthUpgrade health = new healthUpgrade();
 berryDurationIncrease BDI = new berryDurationIncrease();
-Ghost ghost = new Ghost();
+Ghost ghost;
 
 public PImage pac; // Pacman's billede
+public Gif pacMovingLeft; // Pacman's billede når han bevæger sig til venstre.
+public Gif pacMovingRight;
 public PImage radRobert; // Billede af shopkeeper'en
 public PImage shopBackground; // Billede til baggrunden af shoppen.
 public PImage coin; // billede til coins'ne.
+public PImage berryUpgrade;
+public PImage wtwUpg;
 
 public int[] levelSize = {28, 32}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
-public char[][] playingBoard2 = {{'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'p', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'c', 'w', 'w', ' ', 'w', 'w', 'w', 'w', 'w', ' ', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', ' ', 'w', 'w', 'w', 'w', 'w', ' ', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', ' ', ' ', ' ', ' ', ' ', 'w', 'w', ' ', ' ', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'c', 'w', 'w', 'w', 'w', ' ', 'w', 'w', 'w', ' ', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', 'c', ' ', ' ', 'c', ' ', ' ', 'c', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', ' ', 'w', 'w', 'w', 'w', ' ', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'c', 'w', 'w', ' ', 'c', ' ', 'c', ' ', 'c', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', 'w', ' ', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', 'w', ' ', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'c', 'w', 'w', 'w', 'c', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', 'w', ' ', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', 'w', ' ', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'c', 'w', 'w', 'w', 'c', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', 'w', ' ', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', 'w', ' ', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'c', 'w', 'w', 'w', 'c', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'w', 'w', 'w', ' ', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', ' ', 'c', 'g', 'c', ' ', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-                                  {'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}};
+public char[][] playingBoard2;
 
 public float gridSize = 24; // Variablen skal være public for at den kan bruges igennem de forskellige filer.
 public int nCoins = 120; // Tester-værdi til coins.
 public int coinMultiplier = 1;
+boolean chaseStarted;
 
 void setup()
 {
@@ -55,11 +31,24 @@ void setup()
   frameRate(30);
   textSize(30);
   pac = loadImage("JohnPackageMan.png");
+  pacMovingLeft = new Gif(this, "JohnPackageManMovingLeft.gif");
+  pacMovingRight = new Gif(this, "JohnPackageManMovingRight.gif");
+  pacMovingRight.loop();
+  pacMovingLeft.loop();
   radRobert = loadImage("ratRobert.png");
   shopBackground = loadImage("shopBackground.png");
   coin = loadImage("coin.png");
+  berryUpgrade = loadImage("berryUpgrade.png");
+  wtwUpg = loadImage("wtwUpgrade.png");
   
   gameState = "Main menu";
+  
+  playingBoard2 = level1;
+  pacman = new PacMan();
+  ghost = new Ghost();
+  chaseStarted = false;
+  
+  pathfindingPreparation();
 }
 
 void draw()
@@ -67,17 +56,23 @@ void draw()
   if (gameState == "Main menu")
   {
     drawMenu();
-  } else if (gameState == "Playing")
+  } 
+  else if (gameState == "Playing")
   {
     stroke(#000000);
     strokeWeight(1);
     textSize(30);
     background(207);
-    pacman.keyReleased();
     drawGrid();
     drawElements();
-    pacman.drawPac();
     drawNavbarPlaying();
+    
+    pacman.keyReleased();
+    pacman.drawPac();
+    
+    ghost.move();
+    ghost.drawGhost();
+    ghostChaseStarter();
   }
   else if(gameState == "Shop") 
   {
@@ -88,11 +83,11 @@ void draw()
 void drawGrid() 
 {
   
-  for(int i = 1; i <= levelSize[0]; i++) 
+  for(int i = 1; i <= 28; i++) 
   {
     line(gridSize*i, 0, gridSize*i, height);
   }
-  for(int i = 1; i <= levelSize[1]; i++) 
+  for(int i = 1; i <= 32; i++) 
   {
     line(0, gridSize*i + 96, width, gridSize*i + 96);
   }
@@ -100,9 +95,9 @@ void drawGrid()
 
 void drawElements()
 {
-  for (int y = 0; y < levelSize[1]; y++)
+  for (int y = 0; y < 32; y++)
   {
-    for (int x = 0; x < levelSize[0]; x++)
+    for (int x = 0; x < 28; x++)
     {
       char element = playingBoard2[y][x];
       switch(element)
@@ -110,15 +105,15 @@ void drawElements()
 
       case 'p':
         fill(0, 255, 255);
-        text(element, 2+gridSize*x, 22+gridSize*y);
+        text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
         break;
       case 'c':
         fill(0, 255, 0);
-        text(element, 2+gridSize*x, 22+gridSize*y);
+        text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
         break;
       case 'w':
         fill(0);
-        text(element, 2+gridSize*x, 22+gridSize*y);
+        text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
         break;
       }
     }
@@ -132,8 +127,7 @@ void drawNavbarPlaying()
   fill(#33397d);
   rect(0, 0, width - 1, 96);
   
-  coin.resize(70, 70);
-  image(coin, 10, 0);
+  image(coin, -20, -15);
   fill(#ffffff);
   textSize(20);
   text(nCoins + " coins", 70, 40);
@@ -238,3 +232,17 @@ void mousePressed()
     }
   }
 }
+
+void ghostChaseStarter() 
+{
+  int rnd = (int) random(0, 100);
+  /* 0.3% chance for at spøgelserne skifter til chase, med et delay på 10 sekunder efter starten af spillet. ChaseStarted er en variabel der sørger for at den her funktion kører i en loop (i draw()), da stien kun udvikler sig for hvert frame.
+     Da chaseStarted starter som false kan den første betingelse kun starte funktionen, men når den første betingelse så har startet funktionen bliver chaseStarted til true, og kan dermed sørge for at funktionen kører i en loop. */
+  if((rnd < 0.03 && millis() > 10000 && ghost.movementState != "chase") || chaseStarted) 
+  { 
+    chaseStarted = true;
+    pathfindingLogistics();  
+  }
+}
+
+
