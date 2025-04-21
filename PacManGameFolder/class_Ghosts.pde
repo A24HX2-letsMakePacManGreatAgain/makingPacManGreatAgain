@@ -141,6 +141,13 @@ class Ghost
     }  // Det er kort sagt en for-loop med én ekstra betingelse.
   }
   
+  void checkGrid() 
+  {
+    if(PBposX == pacman.PBposX && PBposY == pacman.PBposY) 
+    {
+      nCoins = nCoins/2; // Når man dør fra spøgelserne, mister man halvdelen af sine penge.
+    }
+  }
   
   // dette er selve tegningen af spøgelset (cirkel)
   void drawGhost()
