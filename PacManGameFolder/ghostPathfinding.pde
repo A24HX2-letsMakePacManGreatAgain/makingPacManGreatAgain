@@ -13,14 +13,14 @@ class Node { // !!!!! ChatGPT er blevet brugt som vejleder til denne del. Vi har
   }
 
   void addNeighbors(Node[][] grid) {
-    if (x < levelSize[0] - 1 && !grid[y][x + 1].isWall) neighbors.add(grid[y][x + 1]); // right
-    if (x > 0 && !grid[y][x - 1].isWall) neighbors.add(grid[y][x - 1]); // left
-    if (y < levelSize[1] - 1 && !grid[y + 1][x].isWall) neighbors.add(grid[y + 1][x]); // down
-    if (y > 0 && !grid[y - 1][x].isWall) neighbors.add(grid[y - 1][x]); // up
+    if (x < levelSize[0] - 1 && !grid[y][x + 1].isWall) neighbors.add(grid[y][x + 1]); // Højre
+    if (x > 0 && !grid[y][x - 1].isWall) neighbors.add(grid[y][x - 1]); // Venstre
+    if (y < levelSize[1] - 1 && !grid[y + 1][x].isWall) neighbors.add(grid[y + 1][x]); // Ned
+    if (y > 0 && !grid[y - 1][x].isWall) neighbors.add(grid[y - 1][x]); // Op
   }
 }
 
-Node[][] grid = new Node[levelSize[1]][levelSize[0]]; // [rows][cols] = [32][28]
+Node[][] grid = new Node[levelSize[1]][levelSize[0]]; 
 
 ArrayList<Node> openSet = new ArrayList<Node>();
 ArrayList<Node> closedSet = new ArrayList<Node>();
@@ -33,7 +33,7 @@ void pathfindingPreparation() {
   for (int y = 0; y < levelSize[1]; y++) {
     for (int x = 0; x < levelSize[0]; x++) {
       grid[y][x] = new Node(x, y);
-      if (playingBoard2[y][x] == 'w') grid[y][x].isWall = true;
+      if (playingBoard2[y][x] == 'w') grid[y][x].isWall = true; // For at algoritmen ignorerer felterne der er vægge.
     }
   }
 
