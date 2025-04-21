@@ -11,10 +11,9 @@ class Ghost
   int delayTime2 = 100; // Spøgelserne skal være en smule langsommere end pacman.
   int currentDirection = (int)random(0, 3);
   
-  final int DOWN = 0;
-  final int RIGHT = 1;
-  final int UP = 2;
-  final int LEFT = 3;
+  int pathIndex = -1;
+  boolean pathFound = false;
+  ArrayList<Node> currentPath = new ArrayList<Node>();
   
   Ghost()
   {
@@ -113,11 +112,7 @@ class Ghost
       {
         if(millis() - delayTime1 > delayTime2) 
         {
-          for(Node n : path) 
-          {
-            PBposX = n.j;
-            PBposY = n.i;
-          }
+          followCurrentPath();
         }
       }
       
@@ -128,12 +123,24 @@ class Ghost
   int countAvailableDirections() 
   {
     int count = 0;
-    if (playingBoard2[PBposY+1][PBposX] != 'w') count++; // DOWN
-    if (playingBoard2[PBposY][PBposX+1] != 'w') count++; // RIGHT
-    if (playingBoard2[PBposY-1][PBposX] != 'w') count++; // UP
-    if (playingBoard2[PBposY][PBposX-1] != 'w') count++; // LEFT
+    if (playingBoard2[PBposY+1][PBposX] != 'w') count++; // Ned
+    if (playingBoard2[PBposY][PBposX+1] != 'w') count++; // Højre
+    if (playingBoard2[PBposY-1][PBposX] != 'w') count++; // Op
+    if (playingBoard2[PBposY][PBposX-1] != 'w') count++; // Venstre
     return count;
   }
+  
+  void followCurrentPath() 
+  {
+    if(currentPath != null && pathIndex >= 0 && pathIndex < currentPath.size()) // Her bruger vi en if-statement som en form for for-loop.
+    {
+      Node target = currentPath.get(pathIndex); // Først giver vi variablen værdien af den næste node som vi skal flytte til.
+      PBposX = target.j; // Så flytter vi vores x.
+      PBposY = target.i; // Så flytter vi vores y.
+      pathIndex++; // Og så går vi videre til den næste node.
+    }  // Det er kort sagt en for-loop med én ekstra betingelse.
+  }
+  
   
   // dette er selve tegningen af spøgelset (cirkel)
   void drawGhost()
@@ -142,3 +149,5 @@ class Ghost
     ellipse(PBposX * gridSize + gridSize/2, PBposY * gridSize + gridSize/2 + 96, gridSize*0.8, gridSize*0.8);
   }
 }
+//nu vil vi gå videre med at spøgelset skal kunne finde Pacman...
+//her har vi valgt at bruge A* algoritmen. det vil hjælpe spøgelset at finde Pacman hurtigst mugligt når den går i "Chase mode"
