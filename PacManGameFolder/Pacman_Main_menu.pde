@@ -63,13 +63,13 @@ void quitButtonAnimation()
       buttonSound.play();
       hoverQuit = true;
     }
-      //Quitbutton Animation
-      fill(#33397d);
-      stroke(#ebda26);
-      rect(340, 400, 240, 140, 10);
-      fill(#ff0000);
-      textSize(60);
-      text("QUIT", 395, 490);
+    //Quitbutton Animation
+    fill(#33397d);
+    stroke(#ebda26);
+    rect(340, 400, 240, 140, 10);
+    fill(#ff0000);
+    textSize(60);
+    text("QUIT", 395, 490);
    } 
   else 
   {
