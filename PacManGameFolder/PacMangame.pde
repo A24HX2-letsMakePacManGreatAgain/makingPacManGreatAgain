@@ -7,7 +7,6 @@ speedUpgrade speedy = new speedUpgrade();
 wtwUpgrade wally = new wtwUpgrade();
 healthUpgrade health = new healthUpgrade();
 berryDurationIncrease BDI = new berryDurationIncrease();
-ArrayList<Ghost> ghosts;
 SoundFile coinSound;
 SoundFile introSound;
 SoundFile buttonSound;
