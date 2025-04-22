@@ -1,6 +1,6 @@
-class Node { // !!!!! ChatGPT er blevet brugt som vejleder til denne del. Vi har aldrig arbejdede med algoritmer, og har brug for hjælp. Botten er kun blevet brugt til opstillingen, og som vejleder!
+class Node {
   int x, y;
-  float f = 0, g = 0, h = 0; /* De her værdier er grundlæggende for A* algoritmen. Læs om dem her: https://www.redblobgames.com/pathfinding/a-star/introduction.html*/
+  float f = 0, g = 0, h = 0;
 
   ArrayList<Node> neighbors = new ArrayList<Node>();
   Node previous = null;
@@ -13,14 +13,14 @@ class Node { // !!!!! ChatGPT er blevet brugt som vejleder til denne del. Vi har
   }
 
   void addNeighbors(Node[][] grid) {
-    if (x < levelSize[0] - 1 && !grid[y][x + 1].isWall) neighbors.add(grid[y][x + 1]); // Højre
-    if (x > 0 && !grid[y][x - 1].isWall) neighbors.add(grid[y][x - 1]); // Venstre
-    if (y < levelSize[1] - 1 && !grid[y + 1][x].isWall) neighbors.add(grid[y + 1][x]); // Ned
-    if (y > 0 && !grid[y - 1][x].isWall) neighbors.add(grid[y - 1][x]); // Op
+    if (x < levelSize[0] - 1 && !grid[y][x + 1].isWall) neighbors.add(grid[y][x + 1]); // right
+    if (x > 0 && !grid[y][x - 1].isWall) neighbors.add(grid[y][x - 1]); // left
+    if (y < levelSize[1] - 1 && !grid[y + 1][x].isWall) neighbors.add(grid[y + 1][x]); // down
+    if (y > 0 && !grid[y - 1][x].isWall) neighbors.add(grid[y - 1][x]); // up
   }
 }
 
-Node[][] grid = new Node[levelSize[1]][levelSize[0]]; 
+Node[][] grid = new Node[levelSize[1]][levelSize[0]]; // [rows][cols] = [32][28]
 
 ArrayList<Node> openSet = new ArrayList<Node>();
 ArrayList<Node> closedSet = new ArrayList<Node>();
@@ -33,7 +33,7 @@ void pathfindingPreparation() {
   for (int y = 0; y < levelSize[1]; y++) {
     for (int x = 0; x < levelSize[0]; x++) {
       grid[y][x] = new Node(x, y);
-      if (playingBoard2[y][x] == 'w') grid[y][x].isWall = true; // For at algoritmen ignorerer felterne der er vægge.
+      if (playingBoard2[y][x] == 'w') grid[y][x].isWall = true;
     }
   }
 
@@ -57,7 +57,7 @@ void pathfindingLogistics() {
   }
 
   if (ghost.pathFound) return;
-
+   
   openSet.clear();
   closedSet.clear();
   path.clear();
@@ -84,13 +84,21 @@ void pathfindingLogistics() {
         path.add(0, temp.previous);
         temp = temp.previous;
       }
-
-      ghost.currentPath = path;
-      ghost.pathIndex = 0;
-      ghost.pathFound = true;
-      ghost.movementState = "chase";
-      return;
-    }
+      
+      if(!ghost.pathFound || ghost.movementState == "scatter") 
+      {
+        ghost.currentPath = path;
+        ghost.pathIndex = 0;
+        ghost.pathFound = true;
+        ghost.movementState = "chase";
+        return;
+      }
+      else 
+      {
+        ghost.nextPath = path;
+        ghost.nextPathReady = true;
+      }
+  }
 
     openSet.remove(current);
     closedSet.add(current);
