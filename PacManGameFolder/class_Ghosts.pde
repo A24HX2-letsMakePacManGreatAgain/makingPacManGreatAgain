@@ -74,7 +74,7 @@ class Ghost
             if (possibleDirections.size() == 0) 
             {
                 // Så resetter vi retninger, eller tvinger den ud af hjørnet.
-                currentDirection = (int)random(0, 4); 
+                currentDirection = (currentDirection + 2) % 4;
             }
             else 
             {
@@ -144,6 +144,9 @@ class Ghost
       nCoins = nCoins/2; // Når man dør fra spøgelserne, mister man halvdelen af sine penge.
       playingBoard2 = level1; // Og man tager tilbage til level 1.
       chaseStarted = false; // Og så genstarter vi variablen.
+      
+      pacman.findStartPos(); // Genstarter pacmans position.
+      findStartPos(); // Genstarter spøgelsets position.
     }
   }
   
