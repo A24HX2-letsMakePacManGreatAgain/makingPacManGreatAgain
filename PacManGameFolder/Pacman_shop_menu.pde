@@ -179,7 +179,7 @@ void whichUpgradesDoIHave()
   image(healthUpg, width - 192, 133);
   text(health.nBuys, width - 90, 188);
   image(berryUpgrade, width - 190, 185);
-  text(BDI.nBuys, width - 90, 248);
+  text(BDI.nBuys-1, width - 90, 248);
 }
 
 void descriptionHover() 
@@ -211,10 +211,10 @@ void descriptionHover()
         break;
      case 4:
         fill(#33397d);
-        rect(40, 200, 120, 138);
+        rect(40, 200, 120, 157);
         textSize(11);
         fill(#ffffff);
-        text("When John Package Man \neats a berry the ghosts \nbecome scared of him, \nand he gets the ability to \neat the ghosts. \nThe duration of the berry \nincreases with 2 seconds \naccumatively \n(can be bought twice for \n75 coins each time).", 43, 214);
+        text("When John Package Man \neats a berry the ghosts \nbecome scared of him, \nand he gets the ability to \neat the ghosts. The berry \ncan normally only be \nused to kill the ghost \nonce, but for every time \nthe upgrade is \nbought (max of 2) you can \nkill the ghost once more \nwith a berry-pickup.", 43, 214);
         break;
     }
   }
