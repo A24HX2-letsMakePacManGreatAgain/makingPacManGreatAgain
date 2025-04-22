@@ -1,15 +1,15 @@
 
 class PacMan
 {
-  int delayTime1 = 0;  
+  int delayTime1 = 0;
   int delayTime2 = 75; // makes Pacman move slower
-  
+
   int PBposX;
   int PBposY; // De her er til "playingboard position".
-  
+
   boolean moved = false; // til at vide om det er starten af spillet eller ej. Bruges til hans bevægelse.
 
-  PacMan() 
+  PacMan()
   {
     findStartPos();
   }
@@ -58,26 +58,32 @@ class PacMan
       break; // Hvis knappen ikke er w, a, s, eller d, skal der ikke ske noget.
     }
   }
-  
-  void checkForBuffs() 
+
+  void checkForBuffs()
   {
-    if(playingBoard2[PBposY][PBposX] == 'c') 
+    char cell = playingBoard2[PBposY][PBposX];
+
+    if (cell == 'c')
     {
-      nCoins += 1*coinMultiplier;
-      playingBoard2[PBposY][PBposX] = ' ';
-    }
-    else if(playingBoard2[PBposY][PBposX] == 'b') // Den her er ny, b står for berry.
+      coinSound.play();
+      nCoins += 1 * coinMultiplier;      // optæl mønten
+      playingBoard2[PBposY][PBposX] = ' '; // fjern mønten
+    } else if (playingBoard2[PBposY][PBposX] == 'b') // Den her er ny, b står for berry.
     {
       ghost.dieWhenTouched = true;
-      playingBoard2[PBposY][PBposX] == ' ';
-    }
-    else if(playingBoard2[PBposY][PBposX] == 'm') // Den her er også ny, m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier til coins.
+    } else if (playingBoard2[PBposY][PBposX] == 'm') // Den her er også ny, m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier til coins.
     {
       coinMultiplier++;
       playingBoard2[PBposY][PBposX] = ' ';
     }
+    if (playingBoard2[PBposY][PBposX] == 'c')
+    {
+      nCoins += 1 * coinMultiplier;
+      playingBoard2[PBposY][PBposX] = ' ';
+    }
   }
-  
+
+
   void keyReleased()
   {
     if (millis() - delayTime1 > delayTime2) {
@@ -85,8 +91,8 @@ class PacMan
       delayTime1 = millis(); // register tidspunkt for sidste bevægelse
     }
   }
-  
-  void findStartPos() 
+
+  void findStartPos()
   {
     for (int y = 0; y < levelSize[1]; y++)
     {
@@ -100,15 +106,14 @@ class PacMan
       }
     }
   }
-  
+
   void drawPac()
   {
-    if(!moved) 
+    if (!moved)
     {
       image(pac, PBposX * gridSize - 5, PBposY * gridSize - 4 + 96);
       pacMovingLeft.pause();
-    }
-    else 
+    } else
     {
       image(pacMovingLeft, PBposX * gridSize - 5, PBposY * gridSize - 4 + 96);
       pacMovingLeft.play(); // Credit til ChatGPT for at hjælpe med dette.
