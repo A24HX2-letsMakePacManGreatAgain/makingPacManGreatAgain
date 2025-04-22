@@ -104,11 +104,6 @@ void drawElements()
       char element = playingBoard2[y][x];
       switch(element)
       {
-
-      case 'p':
-        fill(0, 255, 255);
-        text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
-        break;
       case 'c':
         fill(0, 255, 0);
         text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
