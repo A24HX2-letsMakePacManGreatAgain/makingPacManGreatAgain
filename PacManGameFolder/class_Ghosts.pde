@@ -44,63 +44,62 @@ class Ghost
   {
       if (millis() - delayTime1 > delayTime2) // Et delay lige som ved pacman, så spøgelset ikke bevæger sig for hurtigt.
     {
-      checkGrid();
         if (movementState == "scatter") // If-statement til de 3 forskellige movementState'er.
         {
-            int[][] directions = 
-            {
-                {0, 1},   // Ned
-                {1, 0},   // Højre
-                {0, -1},  // Op
-                {-1, 0}   // Left
-            };
+          int[][] directions = 
+          {
+              {0, 1},   // Ned
+              {1, 0},   // Højre
+              {0, -1},  // Op
+              {-1, 0}   // Left
+          };
 
-            int newX = PBposX + directions[currentDirection][0];
-            int newY = PBposY + directions[currentDirection][1]; // Her beregner vi de nye positioner med retningerne.
-            
-            // Vi checker for mulige retninger:
-            ArrayList<Integer> possibleDirections = new ArrayList<Integer>();
-            for (int i = 0; i < 4; i++) 
-            {
-                int nx = PBposX + directions[i][0];
-                int ny = PBposY + directions[i][1];
-                if (i != (currentDirection + 2) % 4 && playingBoard2[ny][nx] != 'w') // Tjekker at den nye i-retning ikke er bagudvendt, og at den nye position ikke er en væg.
-                {
-                    possibleDirections.add(i);
-                }
-            }
+          int newX = PBposX + directions[currentDirection][0];
+          int newY = PBposY + directions[currentDirection][1]; // Her beregner vi de nye positioner med retningerne.
+          
+          // Vi checker for mulige retninger:
+          ArrayList<Integer> possibleDirections = new ArrayList<Integer>();
+          for (int i = 0; i < 4; i++) 
+          {
+              int nx = PBposX + directions[i][0];
+              int ny = PBposY + directions[i][1];
+              if (i != (currentDirection + 2) % 4 && playingBoard2[ny][nx] != 'w') // Tjekker at den nye i-retning ikke er bagudvendt, og at den nye position ikke er en væg.
+              {
+                  possibleDirections.add(i);
+              }
+          }
 
-            // Hvis der ikke er nogle retniner (Hvis spøgelset er i et hjørne)
-            if (possibleDirections.size() == 0) 
-            {
-                // Så resetter vi retninger, eller tvinger den ud af hjørnet.
-                currentDirection = (currentDirection + 2) % 4;
-            }
-            else 
-            {
-                int randomDirection = (int)random(possibleDirections.size());
-                currentDirection = possibleDirections.get(randomDirection);
-            }
+          // Hvis der ikke er nogle retniner (Hvis spøgelset er i et hjørne)
+          if (possibleDirections.size() == 0) 
+          {
+              // Så resetter vi retninger, eller tvinger den ud af hjørnet.
+              currentDirection = (currentDirection + 2) % 4;
+          }
+          else 
+          {
+              int randomDirection = (int)random(possibleDirections.size());
+              currentDirection = possibleDirections.get(randomDirection);
+          }
 
-            // Og så flytter vi spøgelset hen til den nye position.
-            newX = PBposX + directions[currentDirection][0];
-            newY = PBposY + directions[currentDirection][1];
-            if (playingBoard2[newY][newX] != 'w') 
-            {
-                PBposX = newX;
-                PBposY = newY;
-            }
+          // Og så flytter vi spøgelset hen til den nye position.
+          newX = PBposX + directions[currentDirection][0];
+          newY = PBposY + directions[currentDirection][1];
+          if (playingBoard2[newY][newX] != 'w') 
+          {
+              PBposX = newX;
+              PBposY = newY;
+          }
         }
         
         else if(movementState == "chase") 
         {
-            if(millis() - delayTime1 > delayTime2) 
-            {
-                followCurrentPath();
-            }
+          if(millis() - delayTime1 > delayTime2) 
+          {
+              followCurrentPath();
+          }
         }
-        
-        delayTime1 = millis();
+
+      delayTime1 = millis();
     }
   }
   
@@ -135,22 +134,6 @@ class Ghost
       pathFound = false;
       nextPathReady = false;
     }
-  }
-  
-  void checkGrid() 
-  {
-    if (PBposX == pacman.PBposX && PBposY == pacman.PBposY && !dieWhenTouched) {
-  // mister halvdelen af pengene
-  nCoins = nCoins / 2;
-
-  // respawn brættet med alle coins og buffs
-
-  // genstart chase‐logik og placér figurerne
-  chaseStarted = false;
-  pacman.findStartPos();
-  findStartPos();
-}
-
   }
   
   // dette er selve tegningen af spøgelset (cirkel)
