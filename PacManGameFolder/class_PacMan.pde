@@ -21,10 +21,8 @@ class PacMan
     case 'w':
       if (PBposY > 0 && playingBoard2[PBposY-1][PBposX] != 'w') // Skal tjekke om det ønsket felt er ledig. ('w' står for "wall").
       {
-        playingBoard2[PBposY][PBposX] = 'e'; // Så gør vi Pac-man's tidligere position til 'e' ("empty").
         PBposY--;
         checkForBuffs();
-        playingBoard2[PBposY][PBposX] = 'P'; // Og så flytter hans ikon til den nye position.
         moved = true;
       }
       break;
@@ -32,10 +30,8 @@ class PacMan
     case 'a':
       if (PBposX > 0 && playingBoard2[PBposY][PBposX-1] != 'w')
       {
-        playingBoard2[PBposY][PBposX] = 'e';
         PBposX--;
         checkForBuffs();
-        playingBoard2[PBposY][PBposX] = 'P';
         moved = true;
       }
       break;
@@ -43,10 +39,8 @@ class PacMan
     case 's':
       if (PBposY < levelSize[1] - 1 && playingBoard2[PBposY+1][PBposX] != 'w')
       {
-        playingBoard2[PBposY][PBposX] = 'e';
         PBposY++;
         checkForBuffs();
-        playingBoard2[PBposY][PBposX] = 'P';
         moved = true;
       }
       break;
@@ -54,10 +48,8 @@ class PacMan
     case 'd':
       if (PBposX < levelSize[0] - 1 && playingBoard2[PBposY][PBposX+1] != 'w')
       {
-        playingBoard2[PBposY][PBposX] = 'e';
         PBposX++;
         checkForBuffs();
-        playingBoard2[PBposY][PBposX] = 'P';
         moved = true;
       }
       break;
@@ -72,6 +64,7 @@ class PacMan
     if(playingBoard2[PBposY][PBposX] == 'c') 
     {
       nCoins += 1*coinMultiplier;
+      playingBoard2[PBposY][PBposX] = ' ';
     }
     else if(playingBoard2[PBposY][PBposX] == 'b') // Den her er ny, b står for berry.
     {
@@ -80,6 +73,7 @@ class PacMan
     else if(playingBoard2[PBposY][PBposX] == 'm') // Den her er også ny, m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier til coins.
     {
       coinMultiplier++;
+      playingBoard2[PBposY][PBposX] = ' ';
     }
   }
   
