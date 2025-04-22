@@ -21,7 +21,6 @@ class PacMan
       if (PBposY > 0 && playingBoard2[PBposY-1][PBposX] != 'w') // Skal tjekke om det ønsket felt er ledig. ('w' står for "wall").
       {
         PBposY--;
-        checkForBuffs();
         moved = true;
       }
       break;
@@ -30,7 +29,6 @@ class PacMan
       if (PBposX > 0 && playingBoard2[PBposY][PBposX-1] != 'w')
       {
         PBposX--;
-        checkForBuffs();
         moved = true;
       }
       break;
@@ -39,7 +37,6 @@ class PacMan
       if (PBposY < levelSize[1] - 1 && playingBoard2[PBposY+1][PBposX] != 'w')
       {
         PBposY++;
-        checkForBuffs();
         moved = true;
       }
       break;
@@ -48,7 +45,6 @@ class PacMan
       if (PBposX < levelSize[0] - 1 && playingBoard2[PBposY][PBposX+1] != 'w')
       {
         PBposX++;
-        checkForBuffs();
         moved = true;
       }
       break;
@@ -64,19 +60,19 @@ class PacMan
 
     if (cell == 'c') // c står for coin.
     {
-      coinSound.play();
       nCoins += 1 * coinMultiplier; // optæl mønterne.
-      cell = ' '; // fjern mønten
+      coinSound.play();
+      playingBoard2[PBposY][PBposX] = ' ';
     } 
     else if (cell == 'b') // b står for berry.
     {
       ghost.dieWhenTouched = true;
-      cell = ' ';
+      playingBoard2[PBposY][PBposX] = ' ';
     } 
     else if (cell == 'm') // m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier til coins.
     {
       coinMultiplier++;
-      cell = ' ';
+      playingBoard2[PBposY][PBposX] = ' ';
     }
     else if (PBposX == ghost.PBposX && PBposY == ghost.PBposY && !ghost.dieWhenTouched) // Når John Package Man dør fra kontakt med spøgelset.
     {
@@ -89,6 +85,9 @@ class PacMan
     else if (PBposX == ghost.PBposX && PBposY == ghost.PBposY && ghost.dieWhenTouched) // Når spøgelset dør fra kontakt med JPM.
     {
       nCoins += 100; // En præmie på 100 coins.
+      if(BDI.nBuys > 1) BDI.nBuys--;
+      else ghost.dieWhenTouched = false; // Gør så spøgelset kun kan dræbe JPM når alle mulige brug af bæret er færdige.
+      
       chaseStarted = false; // Sørge for at spøgelset går ud af chase (hvis den er i chase).
       ghost.findStartPos(); // Og så skal spøgelset respawn.
     }
