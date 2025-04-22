@@ -6,7 +6,7 @@ speedUpgrade speedy = new speedUpgrade();
 wtwUpgrade wally = new wtwUpgrade();
 healthUpgrade health = new healthUpgrade();
 berryDurationIncrease BDI = new berryDurationIncrease();
-Ghost ghost;
+ArrayList<Ghost> ghosts;
 
 public PImage pac; // Pacman's billede
 public Gif pacMovingLeft; // Pacman's billede når han bevæger sig til venstre.
@@ -16,9 +16,9 @@ public PImage shopBackground; // Billede til baggrunden af shoppen.
 public PImage coin; // billede til coins'ne.
 public PImage berryUpgrade;
 public PImage wtwUpg;
+Ghost ghost;
 
 public int[] levelSize = {28, 32}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
-public char[][] playingBoard2;
 
 
 public float gridSize = 24; // Variablen skal være public for at den kan bruges igennem de forskellige filer.
@@ -41,10 +41,9 @@ void setup()
   coin = loadImage("coin.png");
   berryUpgrade = loadImage("berryUpgrade.png");
   wtwUpg = loadImage("wtwUpgrade.png");
+
   
   gameState = "Main menu";
-  
-  playingBoard2 = level1;
   pacman = new PacMan();
   ghost = new Ghost();
   chaseStarted = false;
@@ -263,4 +262,3 @@ void updateGhostPath()
     lastPathUpdate = millis();
   }
 }
-
