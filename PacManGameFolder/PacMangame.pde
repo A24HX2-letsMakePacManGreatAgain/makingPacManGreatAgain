@@ -25,6 +25,10 @@ PImage healthUpg;
 PImage speedUpg;
 PImage brick; //billede af væg
 PImage dirt; //billede af baggrund
+PImage redGhost;
+PImage blueGhost;
+PImage pinkGhost;
+PImage purpleGhost;
 
 public int[] levelSize = {28, 32}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
 
@@ -60,7 +64,7 @@ void setup()
 
   gameState = "Main menu";
   pacman = new PacMan();
-  ghost = new Ghost();
+  ghost = new Ghost(redGhost);
   
   chaseStarted = false;
   pathfindingPreparation();
@@ -89,8 +93,7 @@ void draw()
 
 void initializePictures() 
 {
-  // Her har vi alle initialiseringer for billederne.
-  pac = loadImage("JohnPackageMan.png");
+  // Her har vi alle initialiseringer for gifs
   pacMovingLeft = new Gif(this, "JohnPackageManMovingLeft.gif");
   pacMovingRight = new Gif(this, "JohnPackageManMovingRight.gif");
   pacMovingDown = new Gif(this, "JohnPackageManMovingDown.gif");
@@ -100,6 +103,12 @@ void initializePictures()
   pacMovingDown.loop();
   pacMovingUp.loop();
   
+  // Her har vi alle initialiseringerne for billederne.
+  pac = loadImage("JohnPackageMan.png");
+  redGhost = loadImage("redGhost.png");
+  pinkGhost = loadImage("pinkGhost.png");
+  blueGhost = loadImage("blueGhost.one");
+  purpleGhost = loadImage("purpleGhost.png");
   radRobert = loadImage("ratRobert.png");
   shopBackground = loadImage("shopBackground.png");
   coin = loadImage("coin.png");
@@ -125,6 +134,7 @@ void playingLogistics()
 
   pacman.keyReleased();
   pacman.drawPac();
+  pacman.checkForBuffs();
 
   ghost.move();
   ghost.drawGhost();
@@ -178,11 +188,14 @@ void drawNavbarPlaying()
   fill(#ffffff);
   textSize(20);
   text(nCoins + " coins", 70, 40);
-  text("Multiplier: " + coinMultiplier, 40, 80);
+  text("Multiplier: " + coinMultiplier, 40, 85);
 
-  textSize(70);
+  textSize(55);
   fill(#ff0000);
-  text("PAC-MAN", 190, 70);
+  text("PAC-MAN", 225, 60);
+  textSize(23);
+  fill(#000000);
+  text("Level " + (currentLevel+1), 290, 86);
 
   textSize(30);
   fill(#232754);
