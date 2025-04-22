@@ -55,8 +55,14 @@ public void drawMenu()
 
 void quitButtonAnimation()
 {
-  if ((mouseX >= 360 && mouseX <= 560) && (mouseY >= 420 && mouseY <= 520))
+  boolean hovering = (mouseX >= 360 && mouseX <= 560) && (mouseY >= 420 && mouseY <= 520);
+  if (hovering)
   {
+    if (!hoverQuit)
+    {
+      buttonSound.play();
+      hoverQuit = true;
+    }
     //Quitbutton Animation
     fill(#33397d);
     stroke(#ebda26);
@@ -64,35 +70,59 @@ void quitButtonAnimation()
     fill(#ff0000);
     textSize(60);
     text("QUIT", 395, 490);
+   } 
+  else 
+  {
+    hoverQuit = false; // Reset når musen går væk
   }
 }
 
-
 void playButtonAnimation()
 {
-  if ((mouseX >= 240 && mouseX <= 440) && (mouseY >= 290 && mouseY <= 390))
+  boolean hovering = (mouseX >= 240 && mouseX <= 440) && (mouseY >= 290 && mouseY <= 390);
+
+  if (hovering)
   {
-    //playbutton Animation
+    if (!hoverPlay) // Hvis musen *lige er kommet* ind
+    {
+      buttonSound.play();
+      hoverPlay = true;
+    }
+
+    // Tegn animation
     fill(#33397d);
     stroke(#ebda26);
     rect(220, 270, 240, 140, 10);
     fill(#ff0000);
     textSize(60);
     text("START", 260, 360);
+  } 
+  else 
+  {
+    hoverPlay = false; // Reset når musen går væk
   }
 }
 
-
 void shopButtonAnimation()
 {
-  if ((mouseX >= 120 && mouseX <= 320) && (mouseY >= 420 && mouseY <= 520))
+  boolean hovering = (mouseX >= 120 && mouseX <= 320) && (mouseY >= 420 && mouseY <= 520);
+  if (hovering)
   {
-    //shopbutton Animation
-    fill(#33397d);
-    stroke(#ebda26);
-    rect(100, 400, 240, 140, 10);
-    fill(#ff0000);
-    textSize(60);
-    text("SHOP", 145, 490);
+    if (!hoverShop)
+    {
+      buttonSound.play();
+      hoverShop = true;
+    }
+      //shopbutton Animation
+      fill(#33397d);
+      stroke(#ebda26);
+      rect(100, 400, 240, 140, 10);
+      fill(#ff0000);
+      textSize(60);
+      text("SHOP", 145, 490);
+   } 
+  else 
+  {
+    hoverShop = false; // Reset når musen går væk
   }
 }
