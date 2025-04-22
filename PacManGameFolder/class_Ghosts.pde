@@ -139,15 +139,18 @@ class Ghost
   
   void checkGrid() 
   {
-    if(PBposX == pacman.PBposX && PBposY == pacman.PBposY) 
-    {
-      nCoins = nCoins/2; // Når man dør fra spøgelserne, mister man halvdelen af sine penge.
-      playingBoard2 = level1; // Og man tager tilbage til level 1.
-      chaseStarted = false; // Og så genstarter vi variablen.
-      
-      pacman.findStartPos(); // Genstarter pacmans position.
-      findStartPos(); // Genstarter spøgelsets position.
-    }
+    if (PBposX == pacman.PBposX && PBposY == pacman.PBposY && !dieWhenTouched) {
+  // mister halvdelen af pengene
+  nCoins = nCoins / 2;
+
+  // respawn brættet med alle coins og buffs
+
+  // genstart chase‐logik og placér figurerne
+  chaseStarted = false;
+  pacman.findStartPos();
+  findStartPos();
+}
+
   }
   
   // dette er selve tegningen af spøgelset (cirkel)
