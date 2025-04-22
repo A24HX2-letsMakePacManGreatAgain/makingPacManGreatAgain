@@ -18,6 +18,7 @@ public PImage berryUpgrade;
 public PImage wtwUpg;
 
 public int[] levelSize = {28, 32}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
+public char[][] playingBoard2;
 
 
 public float gridSize = 24; // Variablen skal være public for at den kan bruges igennem de forskellige filer.
@@ -234,14 +235,37 @@ void mousePressed()
   }
 }
 
+int chaseTimer;
+float chaseChance = 0.03;
+
 void ghostChaseStarter() 
 {
   int rnd = (int) random(0, 100);
   /* 0.3% chance for at spøgelserne skifter til chase, med et delay på 10 sekunder efter starten af spillet. ChaseStarted er en variabel der sørger for at den her funktion kører i en loop (i draw()), da stien kun udvikler sig for hvert frame.
      Da chaseStarted starter som false kan den første betingelse kun starte funktionen, men når den første betingelse så har startet funktionen bliver chaseStarted til true, og kan dermed sørge for at funktionen kører i en loop. */
-  if((rnd < 0.03 && millis() > 10000 && ghost.movementState != "chase") || chaseStarted) 
+
+  if((rnd < chaseChance && millis() > 10000 && ghost.movementState != "chase") || chaseStarted) 
   { 
     chaseStarted = true;
-    pathfindingLogistics();  
+    updateGhostPath();
+  }
+  else if(chaseStarted  && (millis() - chaseTimer < 7000)) 
+  {
+    chaseStarted = false;
+    ghost.movementState = "scatter";
+    ghost.pathFound = false;
+    ghost.nextPathReady = false;
   }
 }
+
+int lastPathUpdate = 0;
+int pathUpdateInterval = 1500;
+void updateGhostPath() 
+{
+  if(millis() - lastPathUpdate > pathUpdateInterval && !ghost.nextPathReady) 
+  {
+    pathfindingLogistics();
+    lastPathUpdate = millis();
+  }
+}
+

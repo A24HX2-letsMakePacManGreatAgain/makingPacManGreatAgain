@@ -173,18 +173,16 @@ void whichUpgradesDoIHave()
   
   fill(#ffffff);
   rect(width - 155, 40, 40, 40);
-  rect(width - 155, 100, 40, 40);
   rect(width - 155, 160, 40, 40);
-  rect(width - 155, 220, 40, 40);
   
   fill(#ff0000);
   text("one", width - 155, 65);
   text(speedy.nBuys, width - 90, 68);
-  text("two", width - 155, 125);
+  image(wtwUpg, width - 190, 65);
   text(wally.nUpgrades, width - 90, 128);
   text("three", width - 155, 185);
   text(health.nBuys, width - 90, 188);
-  text("four", width - 155, 245);
+  image(berryUpgrade, width - 190, 180);
   text(BDI.nBuys, width - 90, 248);
 }
 
@@ -225,11 +223,3 @@ void descriptionHover()
     }
   }
 }
-
-
-
-
-
-
-
-

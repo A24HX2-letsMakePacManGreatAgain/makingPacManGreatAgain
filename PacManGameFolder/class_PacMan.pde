@@ -4,11 +4,15 @@ class PacMan
   int delayTime1 = 0;  
   int delayTime2 = 75; // makes Pacman move slower
   
-  int PBposX = 1;
-  int PBposY = 1; // De her er til "playingboard position".
+  int PBposX;
+  int PBposY; // De her er til "playingboard position".
   
   boolean moved = false; // til at vide om det er starten af spillet eller ej. Bruges til hans bevægelse.
 
+  PacMan() 
+  {
+    findStartPos();
+  }
 
   void move(char button)
   {
@@ -73,7 +77,7 @@ class PacMan
     {
       // Tilføjes senere
     }
-    else if(playingBoard2[PBposY][PBposX] == 'm') // Den her er også ny, m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier.
+    else if(playingBoard2[PBposY][PBposX] == 'm') // Den her er også ny, m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier til coins.
     {
       coinMultiplier++;
     }
@@ -86,7 +90,22 @@ class PacMan
       delayTime1 = millis(); // register tidspunkt for sidste bevægelse
     }
   }
-
+  
+  void findStartPos() 
+  {
+    for (int y = 0; y < levelSize[1]; y++)
+    {
+      for (int x = 0; x < levelSize[0]; x++)
+      {
+        if (playingBoard2[y][x] == 'p')
+        {
+          PBposX = x;
+          PBposY = y;
+        }
+      }
+    }
+  }
+  
   void drawPac()
   {
     if(!moved) 
