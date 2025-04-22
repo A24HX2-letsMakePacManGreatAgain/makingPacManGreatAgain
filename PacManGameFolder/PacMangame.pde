@@ -10,6 +10,7 @@ berryDurationIncrease BDI = new berryDurationIncrease();
 ArrayList<Ghost> ghosts;
 SoundFile coinSound;
 SoundFile introSound;
+SoundFile buttonSound;
 
 //BILLEDER
 public PImage pac; // Pacman's billede
@@ -33,6 +34,10 @@ public int coinMultiplier = 1;
 boolean chaseStarted;
 boolean introPlayed = false;
 
+boolean hoverPlay = false;
+boolean hoverShop = false;
+boolean hoverQuit = false;
+
 void setup()
 {
   size(224*3, 288*3);
@@ -43,7 +48,8 @@ void setup()
   // ——— Lyd ———
   coinSound = new SoundFile(this, "pacman_chomp.wav");
    coinSound.amp(0.5);
-  
+   
+ buttonSound = new SoundFile(this, "pixel-sound-effect-5-103221.wav");
  introSound = new SoundFile(this, "pacman_beginning.wav");
   
   pac = loadImage("JohnPackageMan.png");
@@ -80,7 +86,7 @@ void setup()
       introPlayed = true;
     }
 
-    drawMenu();  // ✅ No extra brackets needed here
+    drawMenu();
   } 
 
     else if (gameState == "Playing")
