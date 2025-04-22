@@ -68,7 +68,8 @@ class PacMan
     }
     else if(playingBoard2[PBposY][PBposX] == 'b') // Den her er ny, b står for berry.
     {
-      // Tilføjes senere
+      ghost.dieWhenTouched = true;
+      playingBoard2[PBposY][PBposX] == ' ';
     }
     else if(playingBoard2[PBposY][PBposX] == 'm') // Den her er også ny, m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier til coins.
     {
