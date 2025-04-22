@@ -14,6 +14,8 @@ class Ghost
   int pathIndex = -1;
   boolean pathFound = false;
   ArrayList<Node> currentPath = new ArrayList<Node>();
+  ArrayList<Node> nextPath = new ArrayList<Node>();
+  boolean nextPathReady = false;
   
   Ghost()
   {
@@ -42,6 +44,7 @@ class Ghost
   {
       if (millis() - delayTime1 > delayTime2) // Et delay lige som ved pacman, så spøgelset ikke bevæger sig for hurtigt.
     {
+      checkGrid();
         if (movementState == "scatter") // If-statement til de 3 forskellige movementState'er.
         {
             int[][] directions = 
@@ -120,6 +123,18 @@ class Ghost
       PBposY = target.y; // Så flytter vi vores y.
       pathIndex++; // Og så går vi videre til den næste node.
     }  // Det er kort sagt en for-loop med én ekstra betingelse.
+    else if (nextPathReady) 
+    {
+      currentPath = nextPath;
+      pathIndex = 0;
+      nextPathReady = false;
+      pathFound = true;
+    }
+    else if(pathIndex >= currentPath.size()) 
+    {
+      pathFound = false;
+      nextPathReady = false;
+    }
   }
   
   void checkGrid() 
@@ -128,6 +143,7 @@ class Ghost
     {
       nCoins = nCoins/2; // Når man dør fra spøgelserne, mister man halvdelen af sine penge.
       playingBoard2 = level1; // Og man tager tilbage til level 1.
+      chaseStarted = false; // Og så genstarter vi variablen.
     }
   }
   
