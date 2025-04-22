@@ -122,15 +122,16 @@ void drawUpgrades()
   switch(itemDisplayed) 
   {
     case 1:
-      fill(#ffffff);
-      rect(305, height/2 + 60, 60, 60);
-      fill(#000000);
-      text("one", 305 - 3, height/2 + 100);
+      speedUpg.resize(158, 158);
+      image(speedUpg, 254, height/2 + 20);
+      textSize(20);
+      fill(#ff0000);
+      text("Speed upgrade", 275, height/2 + 50);
       textSize(15);
+      fill(#000000);
       text(speedy.price + " coins", 305 + 5, height/2 + 140);
       break;
     case 2:
-      fill(#000000);
       image(wtwUpg, 280, height/2 + 42);
       textSize(20);
       fill(#ff0000);
@@ -140,15 +141,15 @@ void drawUpgrades()
       text(wally.price + " coins", 305 + 1, height/2 + 140);
       break;
     case 3:
-      fill(#ffffff);
-      rect(305, height/2 + 60, 60, 60);
-      fill(#000000);
-      text("three", 305 - 3, height/2 + 100);
+      image(healthUpg, 275, height/2 + 45);
+      textSize(20);
+      fill(#ff0000);
+      text("Health upgrade", 273, height/2 + 57);
       textSize(15);
+      fill(#000000);
       text(health.price + " coins", 305 + 5, height/2 + 140);
       break;
     case 4:
-      fill(#000000);
       image(berryUpgrade, 280, height/2 + 35);
       textSize(20);
       fill(#ff0000);
@@ -171,19 +172,14 @@ void whichUpgradesDoIHave()
   fill(#ff0000);
   text("Owned upgrades", width-184, 25);
   
-  fill(#ffffff);
-  rect(width - 155, 40, 40, 40);
-  rect(width - 155, 160, 40, 40);
-  
-  fill(#ff0000);
-  text("one", width - 155, 65);
+  image(speedUpg, width - 213, -10);
   text(speedy.nBuys, width - 90, 68);
   image(wtwUpg, width - 190, 65);
   text(wally.nUpgrades, width - 90, 128);
-  text("three", width - 155, 185);
+  image(healthUpg, width - 192, 133);
   text(health.nBuys, width - 90, 188);
-  image(berryUpgrade, width - 190, 180);
-  text(BDI.nBuys, width - 90, 248);
+  image(berryUpgrade, width - 190, 185);
+  text(BDI.nBuys-1, width - 90, 248);
 }
 
 void descriptionHover() 
@@ -215,10 +211,10 @@ void descriptionHover()
         break;
      case 4:
         fill(#33397d);
-        rect(40, 200, 120, 138);
+        rect(40, 200, 120, 157);
         textSize(11);
         fill(#ffffff);
-        text("When John Package Man \neats a berry the ghosts \nbecome scared of him, \nand he gets the ability to \neat the ghosts. \nThe duration of the berry \nincreases with 2 seconds \naccumatively \n(can be bought twice for \n75 coins each time).", 43, 214);
+        text("When John Package Man \neats a berry the ghosts \nbecome scared of him, \nand he gets the ability to \neat the ghosts. The berry \ncan normally only be \nused to kill the ghost \nonce, but for every time \nthe upgrade is \nbought (max of 2) you can \nkill the ghost once more \nwith a berry-pickup.", 43, 214);
         break;
     }
   }

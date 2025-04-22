@@ -50,12 +50,12 @@ class healthUpgrade
 
 class berryDurationIncrease 
 {
-  int nBuys = 0;
+  int nBuys = 1;
   int price = 75;
   
   void buy() 
   {
-    if(nBuys < 2 && nCoins >= price) 
+    if(nBuys < 3 && nCoins >= price) 
     {
       nBuys++;
       nCoins -= price;
