@@ -4,6 +4,7 @@ import processing.sound.*;
 String gameState; // String for at vide hvilken 'page' man er på.
 
 PacMan pacman;
+Ghost ghost;
 speedUpgrade speedy = new speedUpgrade();
 wtwUpgrade wally = new wtwUpgrade();
 healthUpgrade health = new healthUpgrade();
@@ -20,9 +21,10 @@ PImage shopBackground; // Billede til baggrunden af shoppen.
 PImage coin; // billede til coins'ne.
 PImage berryUpgrade;
 PImage wtwUpg;
+PImage healthUpg;
+PImage speedUpg;
 PImage brick; //billede af væg
 PImage dirt; //billede af baggrund
-Ghost ghost;
 
 public int[] levelSize = {28, 32}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
 
@@ -103,6 +105,8 @@ void initializePictures()
   coin = loadImage("coin.png");
   berryUpgrade = loadImage("berryUpgrade.png");
   wtwUpg = loadImage("wtwUpgrade.png");
+  healthUpg = loadImage("healthUpgrade.png");
+  speedUpg = loadImage("speedUpgrade.png");
   brick = loadImage ("brick.png");
   dirt = loadImage ("dirt.png");
 }
