@@ -20,6 +20,7 @@ public PImage wtwUpg;
 public int[] levelSize = {28, 32}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
 public char[][] playingBoard2;
 
+
 public float gridSize = 24; // Variablen skal være public for at den kan bruges igennem de forskellige filer.
 public int nCoins = 120; // Tester-værdi til coins.
 public int coinMultiplier = 1;
@@ -49,9 +50,6 @@ void setup()
   chaseStarted = false;
   
   pathfindingPreparation();
-
-  println(playingBoard2.length);
-  println(playingBoard2[0].length);
 }
 
 void draw()
@@ -69,6 +67,7 @@ void draw()
     drawGrid();
     drawElements();
     drawNavbarPlaying();
+    changeLevel();
     
     pacman.keyReleased();
     pacman.drawPac();
@@ -236,6 +235,7 @@ void mousePressed()
   }
 }
 
+int chaseTimer;
 float chaseChance = 0.03;
 
 void ghostChaseStarter() 
@@ -243,10 +243,18 @@ void ghostChaseStarter()
   int rnd = (int) random(0, 100);
   /* 0.3% chance for at spøgelserne skifter til chase, med et delay på 10 sekunder efter starten af spillet. ChaseStarted er en variabel der sørger for at den her funktion kører i en loop (i draw()), da stien kun udvikler sig for hvert frame.
      Da chaseStarted starter som false kan den første betingelse kun starte funktionen, men når den første betingelse så har startet funktionen bliver chaseStarted til true, og kan dermed sørge for at funktionen kører i en loop. */
+
   if((rnd < chaseChance && millis() > 10000 && ghost.movementState != "chase") || chaseStarted) 
   { 
     chaseStarted = true;
     updateGhostPath();
+  }
+  else if(chaseStarted  && (millis() - chaseTimer < 7000)) 
+  {
+    chaseStarted = false;
+    ghost.movementState = "scatter";
+    ghost.pathFound = false;
+    ghost.nextPathReady = false;
   }
 }
 
@@ -260,7 +268,4 @@ void updateGhostPath()
     lastPathUpdate = millis();
   }
 }
-
-
-
 
