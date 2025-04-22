@@ -1,4 +1,3 @@
-
 class PacMan
 {
   int delayTime1 = 0;
@@ -68,25 +67,22 @@ class PacMan
       coinSound.play();
       nCoins += 1 * coinMultiplier;      // optæl mønten
       playingBoard2[PBposY][PBposX] = ' '; // fjern mønten
-    } else if (playingBoard2[PBposY][PBposX] == 'b') // Den her er ny, b står for berry.
+    } 
+    else if (cell == 'b') // Den her er ny, b står for berry.
     {
       ghost.dieWhenTouched = true;
-    } else if (playingBoard2[PBposY][PBposX] == 'm') // Den her er også ny, m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier til coins.
+    } 
+    else if (cell == 'm') // Den her er også ny, m står for multiplier. Vi gør at hvis man samler et 'm' op, så forstørrer ens multiplier til coins.
     {
       coinMultiplier++;
       playingBoard2[PBposY][PBposX] = ' ';
     }
-    if (playingBoard2[PBposY][PBposX] == 'c')
-    {
-      nCoins += 1 * coinMultiplier;
-      playingBoard2[PBposY][PBposX] = ' ';
-    }
   }
-
 
   void keyReleased()
   {
-    if (millis() - delayTime1 > delayTime2) {
+    if (millis() - delayTime1 > delayTime2) 
+    {
       move(key);
       delayTime1 = millis(); // register tidspunkt for sidste bevægelse
     }
@@ -113,7 +109,8 @@ class PacMan
     {
       image(pac, PBposX * gridSize - 5, PBposY * gridSize - 4 + 96);
       pacMovingLeft.pause();
-    } else
+    } 
+    else
     {
       image(pacMovingLeft, PBposX * gridSize - 5, PBposY * gridSize - 4 + 96);
       pacMovingLeft.play(); // Credit til ChatGPT for at hjælpe med dette.
