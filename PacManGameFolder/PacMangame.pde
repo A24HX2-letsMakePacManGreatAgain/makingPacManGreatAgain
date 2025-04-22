@@ -1,4 +1,5 @@
 import gifAnimation.*;
+import processing.sound.*;
 
 String gameState;
 PacMan pacman;
@@ -7,7 +8,10 @@ wtwUpgrade wally = new wtwUpgrade();
 healthUpgrade health = new healthUpgrade();
 berryDurationIncrease BDI = new berryDurationIncrease();
 ArrayList<Ghost> ghosts;
+SoundFile coinSound;
+SoundFile introSound;
 
+//BILLEDER
 public PImage pac; // Pacman's billede
 public Gif pacMovingLeft; // Pacman's billede når han bevæger sig til venstre.
 public Gif pacMovingRight;
@@ -27,13 +31,21 @@ public float gridSize = 24; // Variablen skal være public for at den kan bruges
 public int nCoins = 120; // Tester-værdi til coins.
 public int coinMultiplier = 1;
 boolean chaseStarted;
-
+boolean introPlayed = false;
 
 void setup()
 {
   size(224*3, 288*3);
   frameRate(30);
   textSize(30);
+  
+  //til lyden brugte vi lige chatbot til at finde ud af hvordan opstillingen fungerede ellers ikke
+  // ——— Lyd ———
+  coinSound = new SoundFile(this, "pacman_chomp.wav");
+   coinSound.amp(0.5);
+  
+ introSound = new SoundFile(this, "pacman_beginning.wav");
+  
   pac = loadImage("JohnPackageMan.png");
   pacMovingLeft = new Gif(this, "JohnPackageManMovingLeft.gif");
   pacMovingRight = new Gif(this, "JohnPackageManMovingRight.gif");
@@ -46,6 +58,7 @@ void setup()
   wtwUpg = loadImage("wtwUpgrade.png");
   brick = loadImage ("brick.png");
   dirt = loadImage ("dirt.png");
+  
 
 
 
@@ -55,19 +68,29 @@ void setup()
   chaseStarted = false;
 
   pathfindingPreparation();
+  
 }
   void draw()
+{
+  if (gameState == "Main menu")
   {
-    if (gameState == "Main menu")
+    if (!introPlayed && !introSound.isPlaying())
     {
-      drawMenu();
-    } 
+      introSound.play();
+      introPlayed = true;
+    }
+
+    drawMenu();  // ✅ No extra brackets needed here
+  } 
+
     else if (gameState == "Playing")
     {
+      
       stroke(#000000);
       strokeWeight(1);
       textSize(30);
-      background(207);
+      background(207);   
+     
       drawGrid();
       drawElements();
       drawNavbarPlaying();
@@ -79,12 +102,14 @@ void setup()
       ghost.move();
       ghost.drawGhost();
       ghostChaseStarter();
+  
     } 
     else if (gameState == "Shop")
     {
       drawShop();
     }
   }
+
 
   void drawGrid()
   { 
