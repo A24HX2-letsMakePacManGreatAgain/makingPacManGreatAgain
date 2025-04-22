@@ -16,6 +16,7 @@ public PImage shopBackground; // Billede til baggrunden af shoppen.
 public PImage coin; // billede til coins'ne.
 public PImage berryUpgrade;
 public PImage wtwUpg;
+public PImage rock; //billede af væg
 Ghost ghost;
 
 public int[] levelSize = {28, 32}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
@@ -41,6 +42,7 @@ void setup()
   coin = loadImage("coin.png");
   berryUpgrade = loadImage("berryUpgrade.png");
   wtwUpg = loadImage("wtwUpgrade.png");
+  rock = loadImage ("rock.png");
 
   
   gameState = "Main menu";
@@ -103,13 +105,18 @@ void drawElements()
       char element = playingBoard2[y][x];
       switch(element)
       {
-      case 'c':
-        fill(0, 255, 0);
+      case 'p':
+        fill(0, 255, 255);
         text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
         break;
+      case 'c':
+        image(coin, gridSize * x, gridSize * y + 96, gridSize, gridSize);
+        break;
       case 'w':
-        fill(0);
-        text(element, 2 + gridSize * x, 22 + gridSize * y + 96);
+        image(rock, gridSize * x, gridSize * y + 96, gridSize, gridSize);
+        break;
+      case 'b':
+        image(berryUpgrade, gridSize * x, gridSize * y + 96, gridSize, gridSize);
         break;
       }
     }
