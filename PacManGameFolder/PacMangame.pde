@@ -29,6 +29,7 @@ PImage redGhost;
 PImage blueGhost;
 PImage pinkGhost;
 PImage purpleGhost;
+PImage coinMultiplierimg;
 
 public int[] levelSize = {28, 32}; // En int array for at holde på størrelsen af spillebrættet. Tallene er i X,Y format.
 
@@ -118,6 +119,7 @@ void initializePictures()
   speedUpg = loadImage("speedUpgrade.png");
   brick = loadImage ("brick.png");
   dirt = loadImage ("dirt.png");
+  coinMultiplierimg = loadImage("coinMultiplier.png");
 }
 
 void playingLogistics() 
@@ -189,7 +191,9 @@ void drawNavbarPlaying()
   textSize(20);
   text(nCoins + " coins", 70, 40);
   text("Multiplier: " + coinMultiplier, 40, 85);
-
+  coinMultiplierimg.resize(60, 60);
+  image(coinMultiplierimg, -8, 52);
+  
   textSize(55);
   fill(#ff0000);
   text("PAC-MAN", 225, 60);
