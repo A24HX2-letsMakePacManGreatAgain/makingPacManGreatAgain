@@ -1,7 +1,7 @@
 class Ghost
 {
   int PBposX, PBposY; // Grid-position som PacMan
-  color ghostColor; //farven
+  PImage ghostimg;
   String movementState = "scatter"; /* pacman har 3 modes. 1. mode hedder Scatter og gør bare at spøgelset går rundt i random. 2. mode hedder chase, og er når spøgelset direkte går efter spøgelset.
                                        3. mode hedder eaten mode, det er når spøgelset er blevet spist og skal tilbage til start for at blive gennoplivet.*/
   
@@ -17,9 +17,9 @@ class Ghost
   ArrayList<Node> nextPath = new ArrayList<Node>();
   boolean nextPathReady = false;
   
-  Ghost()
+  Ghost(PImage ghostimg)
   {
-    ghostColor = color(255, 0, 0); // farven rød
+    this.ghostimg = ghostimg;
     findStartPos(); // find 'g' i gridden
   }
   
@@ -139,8 +139,7 @@ class Ghost
   // dette er selve tegningen af spøgelset (cirkel)
   void drawGhost()
   {
-    fill(ghostColor);
-    ellipse(PBposX * gridSize + gridSize/2, PBposY * gridSize + gridSize/2 + 96, gridSize*0.8, gridSize*0.8);
+    image(ghostimg, PBposX * gridSize - 4, PBposY * gridSize + 92);
   }
 }
 //nu vil vi gå videre med at spøgelset skal kunne finde Pacman...
